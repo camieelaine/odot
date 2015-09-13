@@ -27,7 +27,7 @@ end
 
 def update
     @todo_item = @todo_list.todo_items.find(params[:id])
-  	if @todo_item.update_attribute(todo_item_params)
+  	if @todo_item.update_attributes(todo_item_params)
   		flash[:success] = "Saved todo list item."
   		redirect_to todo_list_todo_items_path
   	else
@@ -38,7 +38,7 @@ def update
 
   def destroy
     @todo_item = @todo_list.todo_items.find(params[:id])
-      if todo_item.destroy
+      if @todo_item.destroy
         flash[:success] = "Todo list item was deleted."
       else
         flash[:error] = "Todo list item was not deleted."
