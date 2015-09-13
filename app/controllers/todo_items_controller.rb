@@ -1,16 +1,15 @@
 class TodoItemsController < ApplicationController
+
+	before_action :find_todo_list
+
   def index
-  	#find todo_list - get todo_list_id from routes
-  	@todo_list = TodoList.find(params[:todo_list_id])
   end
 
   def new
-  	 @todo_list = TodoList.find(params[:todo_list_id])
   	@todo_item = @todo_list.todo_items.new
   end
 
   def create
-  	@todo_list = TodoList.find(params[:todo_list_id])
     @todo_item = @todo_list.todo_items.new(todo_item_params)
   	if @todo_item.save
   		flash[:success] = "Added todo list item."
@@ -23,12 +22,10 @@ class TodoItemsController < ApplicationController
   end
 
 def edit
-	@todo_list = TodoList.find(params[:todo_list_id])
     @todo_item = @todo_list.todo_items.find(params[:id])
 end
 
 def update
-  	@todo_list = TodoList.find(params[:todo_list_id])
     @todo_item = @todo_list.todo_items.find(params[:id])
   	if @todo_item.update_attribute(todo_item_params)
   		flash[:success] = "Saved todo list item."
@@ -37,7 +34,16 @@ def update
   		flash[:error] = "There was a problem saving that todo list item."
   		render action: :edit
   	end
+  end
 
+  def destroy
+    @todo_item = @todo_list.todo_items.find(params[:id])
+      if todo_item.destroy
+        flash[:success] = "Todo list item was deleted."
+      else
+        flash[:error] = "Todo list item was not deleted."
+      end
+      redirect_to todo_list_todo_items_path
   end
 
 def url_options
@@ -46,6 +52,10 @@ end
 
 
   private
+	def find_todo_list
+		@todo_list = TodoList.find(params[:todo_list_id])
+	end
+
   def todo_item_params
   	params[:todo_item].permit(:content)
   end
