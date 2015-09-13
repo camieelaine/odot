@@ -36,6 +36,16 @@ def update
   	end
   end
 
+  def complete
+        @todo_item = @todo_list.todo_items.find(params[:id])
+        @todo_item.update_attribute(:completed_at, Time.now)
+        redirect_to todo_list_todo_items_path, notice: "Todo item marked as complete."
+
+
+  end
+
+
+
   def destroy
     @todo_item = @todo_list.todo_items.find(params[:id])
       if @todo_item.destroy
