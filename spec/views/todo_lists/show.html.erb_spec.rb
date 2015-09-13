@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe "todo_lists/show", type: :view do
   before(:each) do
