@@ -45,6 +45,13 @@ describe UserSessionsController do
         post :create, email: "jason@teamtreehouse.com", password: "treehouse1"
         expect(flash[:success]).to eq("Thanks for logging in!")
       end
+
+      it "sets the remember me token cookie if chosen" do
+        expect(cookies).to_not have_key('remember_me_token')
+        post :create, email: "jason@teamtreehouse.com", password: "treehouse1", remember_me: "1"
+        expect(cookies).to have_key('remember_me_token')
+        expect(cookies['remember_me_token']).to_not be_nil
+      end
     end
 
     shared_examples_for "denied login" do
