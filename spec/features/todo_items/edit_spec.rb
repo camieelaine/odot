@@ -3,7 +3,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 describe "Editing todo items" do
-  let!(:todo_list) { TodoList.create(title: "Grocery list", description: "Groceries") }
+  let!(:todo_list) { TodoList.create(title: "Grocery list") }
   let!(:todo_item) { todo_list.todo_items.create(content: "Milk") }  
 
   it "is successful with valid content" do

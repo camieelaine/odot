@@ -3,7 +3,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 describe "Viewing todo items" do
-  let!(:todo_list) { TodoList.create(title: "Grocery list", description: "Groceries") }
+  let!(:todo_list) { TodoList.create(title: "Grocery list") }
 
   it "displays the title of the todo list" do
     visit_todo_list(todo_list)
